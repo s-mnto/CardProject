@@ -2,7 +2,7 @@ extends Node
 
 const RANKS: int = 15
 
-var deck: Array[CardResource]
+var deck: Array[CardResource] = []
 
 func _ready() -> void:
 	if deck.size() == 0:
@@ -19,4 +19,3 @@ func _build_deck() -> void:
 			new_card.suit_type = suit
 			new_card.value = value
 			deck.append(new_card)
-	print(deck.size())
