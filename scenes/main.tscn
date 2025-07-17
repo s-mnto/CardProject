@@ -24,32 +24,32 @@ script = ExtResource("1_o5qli")
 [node name="Player" type="HBoxContainer" parent="GameManager"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -16.0
-offset_top = -40.0
-offset_right = 16.0
-offset_bottom = -8.0
+anchors_preset = -1
+anchor_left = 0.45
+anchor_top = 0.778
+anchor_right = 0.55
+anchor_bottom = 0.956
+offset_top = -0.0400085
+offset_bottom = -0.0800018
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_constants/separation = -5
+theme_override_constants/separation = -15
 alignment = 1
 
-[node name="Board" type="GridContainer" parent="GameManager"]
+[node name="Check" type="HBoxContainer" parent="GameManager"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+anchors_preset = -1
+anchor_left = 0.45
+anchor_top = 0.778
+anchor_right = 0.55
+anchor_bottom = 0.956
+offset_top = -38.04
+offset_bottom = -38.08
 grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/v_separation = 15
-columns = 5
+grow_vertical = 0
+theme_override_constants/separation = -10
+alignment = 1
 
 [node name="Buttons" type="Control" parent="."]
 layout_mode = 1
@@ -61,7 +61,7 @@ offset_left = -52.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="PlayButton" type="Button" parent="Buttons"]
+[node name="RedrawButton" type="Button" parent="Buttons"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -73,6 +73,7 @@ offset_bottom = -84.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 6
-text = "CONFIRM"
+text = "Redraw
+"
 
-[connection signal="pressed" from="Buttons/PlayButton" to="GameManager" method="_on_play_button_pressed"]
+[connection signal="pressed" from="Buttons/RedrawButton" to="GameManager" method="_on_redraw_button_pressed"]
