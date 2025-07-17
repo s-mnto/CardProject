@@ -10,9 +10,10 @@ config_version=5
 
 [application]
 
-config/name="RulerOfTheSea"
+config/name="hidden_five"
 run/main_scene="uid://um6upy8f8l1e"
 config/features=PackedStringArray("4.4", "GL Compatibility")
+config/icon="uid://bjr1ky1tdiymc"
 
 [autoload]
 
