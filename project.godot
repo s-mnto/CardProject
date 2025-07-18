@@ -17,8 +17,8 @@ config/icon="uid://bjr1ky1tdiymc"
 
 [autoload]
 
-DeckManager="*res://scripts/globals/deck_manager.gd"
-SignalBus="*res://scripts/globals/signal_bus.gd"
+DeckManager="*res://Scripts/Globals/deck_manager.gd"
+SignalBus="*res://Scripts/Globals/signal_bus.gd"
 
 [debug]
 
