@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://um6upy8f8l1e"]
+[gd_scene load_steps=4 format=3 uid="uid://um6upy8f8l1e"]
 
 [ext_resource type="Script" uid="uid://c5hm0q62ivno1" path="res://Scripts/main.gd" id="1_bo1nx"]
 [ext_resource type="Script" uid="uid://c2sk5w3xj13hr" path="res://Scripts/game_manager.gd" id="2_8gbba"]
+[ext_resource type="Script" uid="uid://7fodj0ux1u5b" path="res://Scripts/animation_manager.gd" id="2_jjvhh"]
 
 [node name="Main" type="Control" node_paths=PackedStringArray("game_manager")]
 layout_mode = 3
@@ -13,7 +14,10 @@ grow_vertical = 2
 script = ExtResource("1_bo1nx")
 game_manager = NodePath("GameManager")
 
-[node name="GameManager" type="Control" parent="."]
+[node name="AnimationManager" type="Node" parent="."]
+script = ExtResource("2_jjvhh")
+
+[node name="GameManager" type="Control" parent="." node_paths=PackedStringArray("anim")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,6 +25,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_8gbba")
+anim = NodePath("../AnimationManager")
 
 [node name="Player" type="HBoxContainer" parent="GameManager"]
 custom_minimum_size = Vector2(32, 32)
@@ -34,7 +39,7 @@ offset_top = -0.0400085
 offset_bottom = -0.0800018
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_constants/separation = -10
+theme_override_constants/separation = -2
 alignment = 1
 
 [node name="Computer" type="HBoxContainer" parent="GameManager"]
@@ -44,9 +49,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -16.0
-offset_top = 10.0
+offset_top = 7.0
 offset_right = 16.0
-offset_bottom = 42.0
+offset_bottom = 39.0
 grow_horizontal = 2
 theme_override_constants/separation = -10
 alignment = 1
@@ -60,9 +65,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -16.0
-offset_top = 6.0
+offset_top = 10.0
 offset_right = 16.0
-offset_bottom = 38.0
+offset_bottom = 42.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
@@ -76,9 +81,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -16.0
-offset_top = -26.0
+offset_top = -38.0
 offset_right = 16.0
-offset_bottom = 6.0
+offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
@@ -89,21 +94,24 @@ anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -56.0
-offset_right = -4.0
+offset_left = -320.0
+offset_right = -320.0
+offset_bottom = -180.0
 grow_horizontal = 0
 grow_vertical = 2
 
 [node name="PlayButton" type="Button" parent="Buttons"]
 unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -7.0
-offset_top = 72.0
-offset_right = -15.0
-offset_bottom = -91.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 88.0
+offset_top = 153.0
+offset_right = 109.0
+offset_bottom = 170.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 6
@@ -112,14 +120,16 @@ text = "Play"
 [node name="RedrawButton" type="Button" parent="Buttons"]
 unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -7.0
-offset_top = 96.0
-offset_right = -15.0
-offset_bottom = -67.0
-grow_horizontal = 2
+anchor_bottom = 0.5
+offset_left = 208.0
+offset_top = 152.0
+offset_right = 238.0
+offset_bottom = 169.0
+grow_horizontal = 0
 grow_vertical = 2
 theme_override_font_sizes/font_size = 6
 text = "Redraw
@@ -127,9 +137,9 @@ text = "Redraw
 
 [node name="RedrawLabel" type="Label" parent="Buttons/RedrawButton"]
 layout_mode = 0
-offset_left = 12.0
+offset_left = 7.0
 offset_top = 17.0
-offset_right = 32.0
+offset_right = 27.0
 offset_bottom = 30.0
 theme_override_font_sizes/font_size = 8
 text = "3"
