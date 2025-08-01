@@ -1,11 +1,12 @@
 class_name GameManager extends Control
 
+const CARD_SCENE: PackedScene = preload("res://Scenes/card_ui.tscn")
 const WAIT_TIME: float = 0.8
 const ANIM_TIMER: float = 0.9
 const TOTAL_CARDS: int = 3
-const CARD_SCENE: PackedScene = preload("res://Scenes/card_ui.tscn")
 
 @export var anim: AnimationManager
+@export var sfx: SoundManager
 
 #Containers
 @onready var player_container: HBoxContainer = $Player
@@ -38,6 +39,7 @@ func _deal_cards(cards: int) -> void:
 		var card: CardResource = DeckManager.deck.pop_front()
 		player_hand.append(card)
 		_add_cards_to_player(card)
+		sfx.card_place_sound()
 		
 func _deal_cards_to_computer(cards: int) -> void:
 	for i: int in range(cards):
@@ -66,6 +68,7 @@ func _select_cards(card: CardUI) -> void:
 	else:
 		check_container.remove_child(card)
 		player_container.add_child(card)
+	sfx.card_place_sound()
 		
 func _compare_hands() -> void:
 	anim.reset_tween()
@@ -85,8 +88,10 @@ func _compare_hands() -> void:
 			anim.delete_card_animation(player)
 
 func _on_redraw_button_pressed() -> void:
-	if redraw_counter == 0:
+	if redraw_counter == 0 or check_container.get_child_count() == 0:
 		return
+	
+	sfx.button_sound.play()
 	
 	for played: CardUI in check_container.get_children():
 		anim.reset_tween()
@@ -108,12 +113,15 @@ func _on_play_button_pressed() -> void:
 		return
 	buttons.hide()
 	
+	sfx.button_sound.play()
+	
 	for card: CardUI in check_container.get_children():
 		card.disable_clickable()
 	
 	for card: CardUI in cpu_container.get_children():
 		cpu_container.remove_child(card)
 		played_computer_cards.add_child(card)
+		sfx.card_place_sound()
 		card.apply_texture()
 		await get_tree().create_timer(WAIT_TIME).timeout
 	
@@ -123,5 +131,6 @@ func _on_play_button_pressed() -> void:
 	restart_button.show()
 
 func _on_restart_button_pressed() -> void:
+	sfx.button_sound.play()
 	get_tree().reload_current_scene()
 	DeckManager._build_deck()

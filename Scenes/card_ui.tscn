@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://22irrsv7en0k"]
+[gd_scene load_steps=3 format=3 uid="uid://22irrsv7en0k"]
 
 [ext_resource type="Script" uid="uid://dwewflj42cpge" path="res://Scripts/card_ui.gd" id="1_e1hm3"]
+[ext_resource type="AudioStream" uid="uid://cbfgl17iclhtm" path="res://Assets/Audio/Cards/card-shove-3.ogg" id="2_y8epe"]
 
 [node name="CardUI" type="Control"]
 custom_minimum_size = Vector2(32, 32)
@@ -27,3 +28,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="HoverSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_y8epe")

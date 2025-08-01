@@ -12,7 +12,7 @@ func delete_card_animation(card: CardUI) -> void:
 
 func redraw_animation(card: CardUI) -> void:
 	tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
-	tween.tween_property(card, "position", Vector2(300, card.position.y), 1.2)
+	tween.tween_property(card, "position", Vector2(300, card.position.y), 0.6)
 	tween.tween_callback(card.queue_free)
 
 func reset_tween() -> void:

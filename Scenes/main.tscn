@@ -1,8 +1,33 @@
-[gd_scene load_steps=4 format=3 uid="uid://um6upy8f8l1e"]
+[gd_scene load_steps=15 format=3 uid="uid://um6upy8f8l1e"]
 
 [ext_resource type="Script" uid="uid://c5hm0q62ivno1" path="res://Scripts/main.gd" id="1_bo1nx"]
 [ext_resource type="Script" uid="uid://c2sk5w3xj13hr" path="res://Scripts/game_manager.gd" id="2_8gbba"]
+[ext_resource type="Shader" uid="uid://c7degfccaunnx" path="res://Scripts/Shaders/main.gdshader" id="2_hptm8"]
 [ext_resource type="Script" uid="uid://7fodj0ux1u5b" path="res://Scripts/animation_manager.gd" id="2_jjvhh"]
+[ext_resource type="AudioStream" uid="uid://0qe78g8xjl6p" path="res://Assets/Audio/Cards/card-place-1.ogg" id="3_344ge"]
+[ext_resource type="Texture2D" uid="uid://cnmyr4rg7rswx" path="res://Assets/Cards/card_back.png" id="3_d1ilt"]
+[ext_resource type="AudioStream" uid="uid://60o4x00xrgn8" path="res://Assets/Audio/Cards/card-place-2.ogg" id="4_ynf5e"]
+[ext_resource type="AudioStream" uid="uid://dvkk6862pk28u" path="res://Assets/Audio/switch2.ogg" id="6_6bp64"]
+[ext_resource type="Script" uid="uid://b8bycgmmlkstv" path="res://Scripts/sound_manager.gd" id="7_6iyac"]
+[ext_resource type="AudioStream" uid="uid://cmih4ol04ywfi" path="res://Assets/Audio/Cards/card-shove-1.ogg" id="7_344ge"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_hptm8"]
+noise_type = 2
+frequency = 0.02
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_d1ilt"]
+noise = SubResource("FastNoiseLite_hptm8")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6iyac"]
+shader = ExtResource("2_hptm8")
+shader_parameter/noise_img = SubResource("NoiseTexture2D_d1ilt")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_fdnlq"]
+streams_count = 2
+stream_0/stream = ExtResource("3_344ge")
+stream_0/weight = 2.471
+stream_1/stream = ExtResource("4_ynf5e")
+stream_1/weight = 4.676
 
 [node name="Main" type="Control" node_paths=PackedStringArray("game_manager")]
 layout_mode = 3
@@ -14,10 +39,30 @@ grow_vertical = 2
 script = ExtResource("1_bo1nx")
 game_manager = NodePath("GameManager")
 
+[node name="Background" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_6iyac")
+position = Vector2(159, 76)
+scale = Vector2(2.8125, 2.59375)
+texture = ExtResource("3_d1ilt")
+
 [node name="AnimationManager" type="Node" parent="."]
 script = ExtResource("2_jjvhh")
 
-[node name="GameManager" type="Control" parent="." node_paths=PackedStringArray("anim")]
+[node name="SoundManager" type="Node2D" parent="."]
+script = ExtResource("7_6iyac")
+
+[node name="PutOnTableSound" type="AudioStreamPlayer2D" parent="SoundManager"]
+stream = SubResource("AudioStreamRandomizer_fdnlq")
+volume_db = 0.2
+
+[node name="ButtonSound" type="AudioStreamPlayer2D" parent="SoundManager"]
+stream = ExtResource("6_6bp64")
+volume_db = 5.0
+
+[node name="EraseSound" type="AudioStreamPlayer2D" parent="SoundManager"]
+stream = ExtResource("7_344ge")
+
+[node name="GameManager" type="Control" parent="." node_paths=PackedStringArray("anim", "sfx")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,6 +71,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_8gbba")
 anim = NodePath("../AnimationManager")
+sfx = NodePath("../SoundManager")
 
 [node name="Player" type="HBoxContainer" parent="GameManager"]
 custom_minimum_size = Vector2(32, 32)
